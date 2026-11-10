@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff8ee">
+<title>Gather · Restaurant Twins</title>
+<style>
+:root{color-scheme:light;--paper:#fff8ee;--card:#fffcf6;--ink:#302019;--muted:#69554b;--tomato:#a63224;--red:#84271d;--line:#e8d9ca;--rose:#f7dfd6;--sage:#e6ecdb;--honey:#f6e7c7;--heading:Arima,Georgia,serif;--body:"Avenir Next","Trebuchet MS",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#f2e8dc;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #743b14;outline-offset:3px}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:var(--heading);line-height:1.08}svg{display:block;width:24px;height:24px;flex:none}a{color:var(--red)}
+.frame{max-width:475px;min-height:100dvh;margin:auto;background:var(--paper);position:relative;box-shadow:0 0 65px #45230f1c;display:flex;flex-direction:column}
+.mast{height:65px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 22px;border-bottom:1px solid var(--line);background:var(--paper)}
+.brand{font-family:var(--heading);font-weight:700;font-size:30px;color:var(--tomato);letter-spacing:-.07em;display:flex;align-items:center;gap:7px}.brand svg{width:19px;height:19px}.mast .step{text-align:right;font-size:11px;color:var(--muted);font-weight:700}.back{border:0;background:none;display:flex;align-items:center;gap:4px;padding:8px 4px 8px 0;min-height:44px;font-size:12px;font-weight:800;justify-self:start}.back svg{width:16px;height:16px}
+main{padding:22px 22px 26px;flex:1}main:focus{outline:none}.hero{padding:24px 20px;background:var(--rose);border:1px solid #e9c4b7;border-radius:22px;position:relative;overflow:hidden;min-height:151px;display:flex;align-items:center;justify-content:space-between;gap:8px}.hero[data-tone=sage]{background:var(--sage);border-color:#d0d9bf}.hero[data-tone=honey]{background:var(--honey);border-color:#ead7ac}.hero h1{font-size:clamp(40px,10vw,54px);letter-spacing:-.055em;margin:4px 0 6px}.eyebrow,.label{font-size:10px;letter-spacing:.115em;text-transform:uppercase;font-weight:850;color:var(--red)}.hero p{color:#513b31;font-size:13px}.art{width:94px;height:94px;color:#973b2b;opacity:.82}.hero[data-tone=sage] .art{color:#526244}.hero[data-tone=honey] .art{color:#795313}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.stat{padding:13px 12px;background:var(--card);border:1px solid var(--line);border-radius:13px}.stat strong{display:block;font-size:20px;line-height:1.15;margin:4px 0}.stat small{color:var(--muted);display:block;font-size:11px}.section{margin-top:24px}.section h2{font-size:25px;letter-spacing:-.035em}.section .lead{font-size:13px;margin-top:6px;color:var(--muted)}.items{margin-top:11px;border:1px solid var(--line);background:var(--card);border-radius:15px;overflow:hidden}.item{padding:13px}.item+.item{border-top:1px solid var(--line)}.item h3{font-size:17px}.item p{font-size:13px;color:var(--muted);margin-top:5px}.item .sub{margin-top:8px}.footnote{font-size:11px;color:var(--muted);margin-top:12px}.next{padding:14px 22px calc(15px + env(safe-area-inset-bottom));background:var(--paper);border-top:1px solid var(--line);position:sticky;bottom:0;z-index:1}.primary{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--tomato);color:#fff;border:1px solid var(--tomato);border-radius:13px;min-height:48px;font-weight:800;padding:9px 12px}.primary:hover{background:var(--red)}.primary svg{width:19px;height:19px}.next p{font-size:11px;text-align:center;color:var(--muted);margin-top:6px}
+.intro h1{font-size:clamp(37px,9vw,46px);letter-spacing:-.055em;margin:5px 0 7px}.intro p{font-size:14px;color:var(--muted)}.cards{display:grid;gap:10px;margin-top:18px}.card{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;text-align:left;width:100%;padding:0}.card:hover{border-color:var(--tomato)}.card-top{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--rose)}.card[data-tone=sage] .card-top{background:var(--sage)}.card[data-tone=honey] .card-top{background:var(--honey)}.card-top h2{font-size:24px;margin:2px 0}.card-icon{color:var(--red)}.card-icon svg{width:26px;height:26px}.match{margin-left:auto;color:var(--red);text-align:right;white-space:nowrap}.match strong{display:block;font-size:23px;line-height:1}.match span{font-size:10px;font-weight:750}.card-info{display:grid;grid-template-columns:.75fr 1.25fr;gap:8px;padding:9px 12px 0}.card-info small{display:block;color:var(--muted);font-size:10px}.card-info strong{font-size:13px}.card-more{display:flex;align-items:center;gap:5px;padding:7px 12px 9px;font-size:12px;font-weight:800;color:var(--red)}.card-more svg{width:14px;height:14px}
+.hero .match{border:1px solid #ae8b795c;padding:9px 10px;border-radius:12px;background:#fffcf6a1;align-self:center}.hero .match strong{font-size:31px}.hero .match span{white-space:normal;display:block;max-width:79px;line-height:1.15;margin-top:4px}
+.dish-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.dish-score{border-radius:20px;background:var(--rose);color:var(--red);font-weight:850;font-size:11px;white-space:nowrap;padding:3px 7px}.compare{font-size:11px!important;font-weight:800}.result{padding:12px;border-radius:12px;border:1px solid #c6d2b9;background:var(--sage);margin-top:13px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}.result button{background:none;border:0;color:#343f2b;text-decoration:underline;min-height:30px}.result strong{display:block}.result[hidden]{display:none}
+@media(max-width:350px){main,.next{padding-left:14px;padding-right:14px}.mast{padding:0 14px}.art{width:70px;height:70px}.stats{gap:6px}.stat strong{font-size:17px}}
+.photo{margin:14px 0 0}.hero-photo{margin:12px 0 18px}.photo img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px;background:#f1e3d8}.photo img[hidden]{display:none}.photo figcaption{font-size:.73rem;line-height:1.4;color:#625148;margin-top:5px}.photo a{color:inherit;text-underline-offset:2px}.dish-photo img{aspect-ratio:2/1}.archive-title{margin:18px 0 0;font-size:1rem}
+.photo-fallback{display:none;margin-left:.65em}.photo img[hidden]+figcaption .photo-fallback{display:inline}</style>
+</head>
+<body>
+<div class="frame" id="app"></div>
+<script>
+'use strict';
+const twins = {
+  jungsik: {name:'Jungsik',area:'Tribeca',tone:'rose',price:335,match:68,opening:'Nov. 13 · 9:30 p.m.',format:'Signature tasting menu',note:'The earliest opening shown was for the main dining room.',dishes:[
+    ['Galbi','Lamb saddle with neungi mushrooms',75,'Both are centerpiece meat courses with Korean accompaniments. Jungsik serves beef with white kimchi.'],
+    ['Yellowtail kimbap','Gosari rice',75,'Both highlight seasoned rice. Jungsik uses truffle rice and crispy seaweed in a roll.'],
+    ['Yun-dubu','Dubu mu',70,'Both feature tofu as a Korean side dish. Jungsik lists its version in the bar menu’s banchan selection.']
+  ]},
+  naro: {name:'NARO',area:'Rockefeller Center',tone:'sage',price:125,match:48,opening:'Nov. 10 · 5:00 p.m.',format:'Five-course dinner tasting',note:'The matched dishes are à la carte. The five-course tasting menu rotates.',dishes:[
+    ['Oyster mushroom bowl','Gosari rice',80,'Both offer earthy flavors over rice. NARO uses oyster mushrooms and black truffle, while Atomix uses bracken fern.'],
+    ['Galbi beef patty bowl','Lamb saddle with neungi mushrooms',65,'Both pair a savory meat preparation with rice. NARO uses a sweet-soy beef patty.'],
+    ['Fried eggplant with smoked tofu','Dubu mu',60,'Both pair tofu with vegetables. NARO uses smoked tofu and eggplant for a different flavor and texture.']
+  ]},
+  jua: {name:'Jua',area:'Flatiron',tone:'honey',price:150,match:41,opening:'Nov. 17 · 8:30 p.m.',format:'Seven-course tasting menu',note:'Jua releases tables three weeks ahead. Some later dates in the research window were still unreleased.',dishes:[
+    ['Duck & Chan','Lamb saddle with neungi mushrooms',65,'Both center a protein course around Korean accompaniments. Jua serves duck.'],
+    ['Jook','Gosari rice',60,'Both feature rice in a Korean tasting menu. Jua serves it as porridge.']
+  ]}
+};
+const app = document.getElementById('app');
+const storageKey = 'gather-atomix-study-choice-v1';
+const icons = {
+  spark:'<path d="M12 2v20M2 12h20M5 5l14 14M19 5 5 19"/>',
+  arrow:'<path d="M4 12h15m-6-6 6 6-6 6"/>',
+  back:'<path d="M20 12H5m6-6-6 6 6 6"/>',
+  plate:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="6"/><path d="M10 13c3 0 4-2 4-4m-4 7c1-2 3-4 5-4"/>',
+  check:'<path d="m5 12 4 4L19 6"/>'
+};
+function icon(name) {
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+icons[name]+'</svg>';
+}
+function illustration() {
+  return '<svg class="art" viewBox="0 0 112 112" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="55" cy="57" r="38"/><circle cx="55" cy="57" r="29"/><path d="M40 68c10 0 20-5 25-16M54 60c-5-1-9-6-10-11 6 0 12 4 13 9M58 57c1-7 6-13 13-14-1 8-6 13-12 15M88 15l17 16m-13-22 17 17M18 81l-8 15m15-11-8 15M13 31v11m-5-5h10m78 42v10m-5-5h10"/></svg>';
+}
+function loadChoice() {
+  try {
+    const entry = JSON.parse(sessionStorage.getItem(storageKey));
+    return entry && Object.hasOwn(twins,entry.id) ? entry : null;
+  } catch { return null; }
+}
+let choice = loadChoice();
+function setChoice(entry) {
+  choice = entry;
+  try {
+    if (entry) sessionStorage.setItem(storageKey, JSON.stringify(entry));
+    else sessionStorage.removeItem(storageKey);
+  } catch { /* Choice is still available in memory. */ }
+}
+function currentPage() {
+  const page = location.hash.slice(1);
+  return page === 'twins' || Object.hasOwn(twins,page) ? page : 'atomix';
+}
+function header(page) {
+  const isHome = page === 'atomix';
+  const isOverview = page === 'twins';
+  const back = isHome ? '<span></span>' : '<button class="back" type="button" data-go="'+(isOverview?'atomix':'twins')+'">'+icon('back')+(isOverview?'Atomix':'All twins')+'</button>';
+  return '<header class="mast">'+back+'<div class="brand">'+icon('spark')+'Gather</div><span class="step">'+(isHome?'Restaurant':isOverview?'Compare':'Twin details')+'</span></header>';
+}
+function stat(label, value, detail) {
+  return '<div class="stat"><span class="label">'+label+'</span><strong>'+value+'</strong><small>'+detail+'</small></div>';
+}
+function footer(action,label,note) {
+  const attributes = action === 'select' ? 'data-select' : 'data-go="'+action+'"';
+  return '<footer class="next"><button class="primary" type="button" '+attributes+'>'+label+icon(action==='select'?'check':'arrow')+'</button>'+(note?'<p>'+note+'</p>':'')+'</footer>';
+}
+function choiceSummary(allowReset) {
+  return '<div class="result" role="status" '+(choice?'':'hidden')+'><span><strong>'+(choice?'Selected '+twins[choice.id].name:'')+'</strong><span>Study choice recorded.</span></span>'+(allowReset?'<button type="button" data-reset>Clear choice</button>':'')+'</div>';
+}
+const photos = {
+  "atomix": {
+    "room": [
+      "https://images.squarespace-cdn.com/content/v1/5ac3bec4aa49a18caab02bf4/1568266097028-NYA636EEL33OHVSW85N8/Atomix_Lounge-Downstairs_Photo%2BCredit%2BEvan%2BSung.jpg?format=1000w",
+      "Atomix downstairs dining space",
+      "Evan Sung / Atomix",
+      "https://www.atomixnyc.com/gallery-1"
+    ],
+    "archive": [
+      "https://images.squarespace-cdn.com/content/v1/5ac3bec4aa49a18caab02bf4/1568266055326-8REZ6A0XA4ULKEVTYGAC/Atomix_Jjim_Photo%2BCredit%2BEvan%2BSung.jpg?format=900w",
+      "Jjim from a previous Atomix menu",
+      "Evan Sung / Atomix",
+      "https://www.atomixnyc.com/gallery-1"
+    ]
+  },
+  "jungsik": {
+    "room": [
+      "https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/05836a82-d3ea-44f6-88f1-0bbd1131204b.jpg?auto=format&ixlib=java-2.3.2&ixlib=js-3.8.0&w=1000",
+      "Jungsik main dining room",
+      "Jungsik / Tock",
+      "https://www.exploretock.com/jungsik/experience/625028/jungsik-main-dining-room-november-december-2026"
+    ],
+    "dishes": {
+      "Yellowtail kimbap": [
+        "https://www.theworlds50best.com/northamerica/en/filestore/jpg/NA50BR25-Jungsik-Dish-Kimbap.jpg",
+        "Jungsik signature kimbap",
+        "The 50 Best",
+        "https://www.theworlds50best.com/northamerica/en/the-list/jungsik.html"
+      ],
+      "Galbi": [
+        "https://pics.gourmandsyndrome.com/jungsik%2F22_galbi.webp",
+        "Galbi at Jungsik, shown with its earlier barley rice presentation",
+        "Gourmand Syndrome",
+        "https://www.gourmandsyndrome.com/nyc/korean/jungsik/"
+      ],
+      "Yun-dubu": [
+        "https://pics.gourmandsyndrome.com/jungsik%2F3_banchan.webp",
+        "Jungsik’s banchan platter, which includes yun-dubu",
+        "Gourmand Syndrome",
+        "https://www.gourmandsyndrome.com/nyc/korean/jungsik/"
+      ]
+    }
+  },
+  "naro": {
+    "room": [
+      "https://cdn.sanity.io/images/bs9rmafh/main/2694ba4196bca6d0ccf8229b926a44962d03dcc9-5997x4000.jpg?w=1000&auto=format",
+      "NARO main dining room",
+      "Rockefeller Center",
+      "https://www.rockefellercenter.com/magazine/food-drinks/naro-at-rockefeller-center/"
+    ],
+    "dishes": {
+      "Galbi beef patty bowl": [
+        "https://www.nyculturebeat.com/files/attach/images/3947434/876/159/004/b28bb1dcff1d01be42afd616d6aebccb.jpg",
+        "Galbi beef patty bowl from NARO’s 2025 lunch menu",
+        "NYCultureBeat",
+        "https://www.nyculturebeat.com/index.php?document_srl=4159876&mid=FoodDrink2"
+      ],
+      "Oyster mushroom bowl": [
+        "https://d1w7312wesee68.cloudfront.net/wXhy9Dk7YFZqQ-TJuZfPUEsQ-TP-qMF7kdVgz_8Qego/resize%3Afit%3A720%3A720/plain/s3%3A/toasttab/restaurants/restaurant-113310000000000000/menu/items/2/item-200000051763030842_1749248781.jpg",
+        "NARO’s oyster mushroom bowl with black truffle and sunchoke chips",
+        "NARO’s ordering menu",
+        "https://order.toasttab.com/online/naro-nyc/item-oyster-mushroom-bowl_aed83a33-48e8-4372-819b-d4a72b4f92f9"
+      ]
+    }
+  },
+  "jua": {
+    "room": [
+      "https://bestofkorea.com/wp-content/uploads/2022/09/JuaWeb021_recopy_c-2.jpg",
+      "Jua dining room",
+      "Best of Korea",
+      "https://bestofkorea.com/review-jua-nyc-modern-korean-restaurant/"
+    ],
+    "dishes": {
+      "Jook": [
+        "https://images.squarespace-cdn.com/content/v1/54ff4fa6e4b048b3e7348ab4/21c5838d-92ff-4ec3-bde0-24e5a1016dc9/jua-nyc-009.jpg?format=900w",
+        "Jook from a 2023 visit to Jua",
+        "Jenn Pan",
+        "https://www.jenn.la/posts/2023/8/4/jua-new-york-city"
+      ],
+      "Duck & Chan": [
+        "https://images.squarespace-cdn.com/content/v1/54ff4fa6e4b048b3e7348ab4/95ba4f63-f081-4b38-8e2c-ff7f939a203e/jua-nyc-012.jpg?format=900w",
+        "Duck & Chan from a 2023 visit to Jua",
+        "Jenn Pan",
+        "https://www.jenn.la/posts/2023/8/4/jua-new-york-city"
+      ]
+    }
+  }
+};
+function photo(entry, kind = '') {
+  if (!entry) return '';
+  const [url, caption, credit, source] = entry;
+  return '<figure class="photo '+kind+'"><img src="'+url.replaceAll('&','&amp;')+'" alt="'+caption+'" decoding="async" referrerpolicy="no-referrer"><figcaption>'+caption+' · <a href="'+source.replaceAll('&','&amp;')+'" target="_blank" rel="noopener noreferrer">'+credit+'</a><a class="photo-fallback" href="'+url.replaceAll('&','&amp;')+'" target="_blank" rel="noopener noreferrer">Open photo</a></figcaption></figure>';
+}
+app.addEventListener('error', event => {
+  if (event.target instanceof HTMLImageElement) event.target.hidden = true;
+}, true);
+
+function atomixView() {
+  return '<main id="content" tabindex="-1"><section class="hero"><div><span class="eyebrow">Original restaurant</span><h1>Atomix</h1><p>Modern Korean fine dining</p></div>'+illustration()+'</section>'+photo(photos.atomix.room,'hero-photo')+'<div class="stats">'+ 
+    stat('Average meal price','~$396/person','Average across listed experiences')+
+    stat('Dinner for two','No openings','Nov. 10–Dec. 9 research window')+
+    '</div><section class="section"><h2>Chef’s Counter menu</h2><p class="lead">November menu highlights · Chef’s Counter from $424/person</p><div class="items"><article class="item"><h3>Honeysuckle sikhye</h3><p>A sweet Korean rice drink with honeysuckle.</p></article><article class="item"><h3>Lamb saddle with neungi mushrooms</h3></article><article class="item"><h3>Dubu mu</h3><p>Tofu and radish</p></article><article class="item"><h3>Gosari rice</h3><p>Rice with bracken fern</p></article></div><h3 class="archive-title">From a previous menu</h3>'+photo(photos.atomix.archive,'dish-photo')+'</section><p class="footnote">Dinner availability checked Nov. 10, 2026 · Party of two · ET.</p></main>'+footer('twins','Explore Restaurant Twins','');
+}
+function overview() {
+  const cards = Object.entries(twins).map(([id,twin],index) =>
+    '<button type="button" class="card" data-tone="'+twin.tone+'" data-go="'+id+'"><div class="card-top"><span class="card-icon">'+icon('plate')+'</span><div><span class="label">Twin '+(index+1)+'</span><h2>'+twin.name+'</h2></div><div class="match"><strong>'+twin.match+'%</strong><span>overall match</span></div></div><div class="card-info"><span><small>Tasting menu</small><strong>$'+twin.price+'/person</strong></span><span><small>Earliest opening observed</small><strong>'+twin.opening+'</strong></span></div><span class="card-more">View match details '+icon('arrow')+'</span></button>'
+  ).join('');
+  return '<main id="content" tabindex="-1"><div class="intro"><span class="eyebrow">Alternatives to Atomix</span><h1>Restaurant Twins</h1><p>Compare the dinner menus, match estimates, and openings for two.</p></div><div class="cards">'+cards+'</div>'+choiceSummary(true)+'<p class="footnote">Availability checked Nov. 10, 2026 · Party of two · ET.</p></main>';
+}
+function twinView(page) {
+  const twin = twins[page];
+  const dishes = twin.dishes.map(([name,reference,score,reason]) =>
+    '<article class="item"><div class="dish-top"><h3>'+name+'</h3><span class="dish-score">'+score+'% dish match</span></div><p class="compare">Atomix · '+reference+'</p><p>'+reason+'</p>'+photo(photos[page].dishes[name],'dish-photo')+'</article>'
+  ).join('');
+  return '<main id="content" tabindex="-1"><section class="hero" data-tone="'+twin.tone+'"><div><span class="eyebrow">Restaurant Twin</span><h1>'+twin.name+'</h1><p>'+twin.area+' · Korean</p></div><div class="match"><strong>'+twin.match+'%</strong><span>overall match to Atomix</span></div></section>'+photo(photos[page].room,'hero-photo')+'<div class="stats">'+ 
+    stat('Tasting menu','$'+twin.price+'/person',twin.format)+
+    stat('Earliest opening',twin.opening,'Dinner for two · ET')+
+    '</div><section class="section"><h2>How the dishes compare</h2><p class="lead">'+twin.note+'</p><div class="items">'+dishes+'</div></section><p class="footnote">Match percentages are Gather’s estimates. Availability checked Nov. 10, 2026.</p>'+choiceSummary(false)+'</main>'+footer('select',choice?.id===page?'Selected '+twin.name:'Select '+twin.name,'Records your study choice only.');
+}
+function render(moveFocus = false) {
+  const page = currentPage();
+  app.innerHTML = header(page) + (page === 'atomix' ? atomixView() : page === 'twins' ? overview() : twinView(page));
+  document.title = (page === 'atomix' ? 'Atomix' : page === 'twins' ? 'Restaurant Twins' : twins[page].name)+' · Gather';
+  if (moveFocus) {
+    document.getElementById('content').focus({preventScroll:true});
+    window.scrollTo(0,0);
+  }
+}
+app.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button) return;
+  if (button.dataset.go) {
+    const destination = button.dataset.go;
+    location.hash = destination === 'atomix' ? '' : destination;
+  } else if (button.hasAttribute('data-select')) {
+    const page = currentPage();
+    if (!Object.hasOwn(twins,page)) return;
+    setChoice({id:page, restaurant:twins[page].name, selectedAt:new Date().toISOString()});
+    const summary = app.querySelector('.result');
+    summary.hidden = false;
+    summary.querySelector('strong').textContent = 'Selected '+twins[page].name;
+    button.innerHTML = 'Selected '+twins[page].name+icon('check');
+    summary.scrollIntoView({block:'nearest'});
+  } else if (button.hasAttribute('data-reset')) {
+    setChoice(null);
+    render(true);
+  }
+});
+window.addEventListener('hashchange', () => render(true));
+render();
+</script>
+</body>
+</html>
