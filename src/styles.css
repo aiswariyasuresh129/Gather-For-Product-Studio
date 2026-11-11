@@ -771,3 +771,25 @@ summary {
 .dish-contributions small {
   grid-column: 1 / -1;
 }
+
+.irion { max-width: 62rem; margin-inline: auto; padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem; }
+.irion-header { display: flex; align-items: baseline; gap: 1rem; border-bottom: 1px solid #ddcfbc; padding-bottom: 1rem; margin-bottom: 2rem; }
+.irion-header strong { font-size: 1.5rem; color: #982d1d; }
+.irion h1 { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.1; margin-block: .3rem .75rem; }
+.irion p { margin-block: .5rem; }
+.irion-kicker { color: #794536; font-weight: 600; }
+.irion-filters { border: 0; padding: 0; margin-block: 1.5rem; }
+.irion-filters legend { font-weight: 700; margin-bottom: .5rem; }
+.irion-filters button { border: 1px solid #982d1d; border-radius: 2rem; padding: .55rem 1rem; margin: 0 .5rem .4rem 0; cursor: pointer; }
+.irion-filters button[aria-pressed="true"] { background: #982d1d; color: white; }
+.irion-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; margin-top: 1rem; }
+.irion-card, .irion-note { padding: 1rem; border: 1px solid #ddcfbc; border-radius: 1rem; background: #fffaf2; }
+.irion-card h2 { font-size: 1.5rem; margin-block: .25rem .65rem; }
+.irion-card h3 { font-weight: 700; }
+.irion a { color: #842717; text-decoration: underline; }
+
+.irion { max-width: 31rem; padding-top: 0; }
+.irion > main > .irion-card { margin-block: 1rem; }
+.irion-results { grid-template-columns: 1fr; }
+.irion-profile-link { display: block; margin-top: 1rem; padding: .75rem 1rem; border-radius: .75rem; background: #982d1d; color: #fff !important; text-decoration: none !important; font-weight: 700; }
+.irion-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }

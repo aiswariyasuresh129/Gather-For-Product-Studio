@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, Navigate, Route, Routes, useLocation, useParams } from 'react-router';
+import { IrionDinner, IrionProfile, IrionTwinProfile } from './IrionDinner';
 import {
   BookingStat, ChoiceSummary, Footer, Masthead, PlateIcon, PlateIllustration,
   RestaurantPhoto, SelectButton, Stat,
@@ -317,7 +318,10 @@ export function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<ProfilePage meal="brunch" />} />
+      <Route path="/" element={<IrionProfile />} />
+      <Route path="/irion/twins" element={<IrionDinner />} />
+      <Route path="/irion/twins/:id" element={<IrionTwinProfile />} />
+      <Route path="/rule-of-thirds" element={<ProfilePage meal="brunch" />} />
       <Route path="/dinner" element={<ProfilePage meal="dinner" />} />
       <Route path="/twins" element={<Navigate replace to="/twins/brunch" />} />
       <Route path="/twins/:meal" element={<OverviewRoute />} />
