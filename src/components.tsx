@@ -24,13 +24,13 @@ export function PlateIllustration() {
   );
 }
 
-export function Masthead({ step, back }: { step: string; back?: string }) {
+export function Masthead({ step, back, backLabel }: { step: string; back?: string; backLabel?: string }) {
   return (
     <header className="mast">
       {back ? (
         <Link className="back" to={back}>
           <ArrowLeft aria-hidden="true" />
-          {back.startsWith('/twins') ? 'All twins' : restaurant.name}
+          {backLabel ?? (back.startsWith('/twins') ? 'All twins' : restaurant.name)}
         </Link>
       ) : <span />}
       <div className="brand"><Asterisk aria-hidden="true" />Gather</div>
