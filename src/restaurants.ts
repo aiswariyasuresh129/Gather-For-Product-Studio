@@ -1,216 +1,237 @@
+import { restaurantPhotos, ruleDishPhotos } from './photos';
+
 export interface Photo {
   url: string;
   caption: string;
   credit: string;
   source: string;
+  originalUrl?: string;
 }
 
-export interface DishMatch {
+interface Dish {
   name: string;
-  reference: string;
-  score: number;
-  reason: string;
+  description: string;
+  price?: number;
   photo?: Photo;
 }
 
-export interface Twin {
+interface DishMatch {
   name: string;
-  area: string;
-  tone: "rose" | "sage" | "honey";
-  price: number;
-  match: number;
-  opening: string;
-  format: string;
-  note: string;
-  room: Photo;
-  dishes: DishMatch[];
+  score: 0 | 50 | 75 | 100;
+  reason: string;
 }
 
-export const atomix = {
-  room: {
-    url: "https://images.squarespace-cdn.com/content/v1/5ac3bec4aa49a18caab02bf4/1568266097028-NYA636EEL33OHVSW85N8/Atomix_Lounge-Downstairs_Photo%2BCredit%2BEvan%2BSung.jpg?format=1000w",
-    caption: "Atomix downstairs dining space",
-    credit: "Evan Sung / Atomix",
-    source: "https://www.atomixnyc.com/gallery-1"
-  },
-  archive: {
-    url: "https://images.squarespace-cdn.com/content/v1/5ac3bec4aa49a18caab02bf4/1568266055326-8REZ6A0XA4ULKEVTYGAC/Atomix_Jjim_Photo%2BCredit%2BEvan%2BSung.jpg?format=900w",
-    caption: "Jjim from a previous Atomix menu",
-    credit: "Evan Sung / Atomix",
-    source: "https://www.atomixnyc.com/gallery-1"
-  },
-  dishes: [
-    {
-      name: "Honeysuckle sikhye",
-      description: "A sweet Korean rice drink with honeysuckle."
-    },
-    {
-      name: "Lamb saddle with neungi mushrooms"
-    },
-    {
-      name: "Dubu mu",
-      description: "Tofu and radish"
-    },
-    {
-      name: "Gosari rice",
-      description: "Rice with bracken fern"
-    }
-  ]
-} satisfies {
-  room: Photo;
-  archive: Photo;
-  dishes: { name: string; description?: string }[];
+type DishMatches = [DishMatch, DishMatch, DishMatch, DishMatch, DishMatch];
+
+export interface Booking {
+  platform: string;
+  url: string;
+  opening?: string;
+}
+
+export interface Twin {
+  meal: MealId;
+  name: string;
+  area: string;
+  address: string;
+  camis: string;
+  tone: 'rose' | 'sage' | 'honey';
+  price: number;
+  order: string;
+  atmosphere: number;
+  atmosphereReason: string;
+  menu: string;
+  booking: Booking;
+  affiliation?: string;
+  photo: Photo;
+  dishes: DishMatches;
+}
+
+export const restaurant = {
+  name: 'Rule of Thirds',
+  area: 'Greenpoint, Brooklyn',
+  address: '171 Banker St, Brooklyn',
+  description: 'Japanese home cooking and izakaya-style dining.',
+  menu: 'https://www.thirdsbk.com/menus/',
+  photo: restaurantPhotos.ruleOfThirds,
 };
 
+const ruleOfThirdsResy = 'https://resy.com/cities/new-york-ny/venues/rule-of-thirds';
+const availabilityDate = 'Nov. 10, 2026';
+
+export interface Meal {
+  label: string;
+  hours: string;
+  price: number;
+  order: string;
+  priceMethod: string;
+  booking: Booking;
+  weights: [number, number, number, number, number];
+  dishes: [Dish, Dish, Dish, Dish, Dish];
+}
+
+export const meals = {
+  brunch: {
+    label: 'Brunch',
+    hours: 'Saturday and Sunday · 10 a.m.–3 p.m.',
+    price: 31,
+    order: 'Hottokeki, chicken katsu sando and gyudon',
+    priceMethod: 'One shared pancake or hotcake and two savory mains for two.',
+    booking: { platform: 'Resy', url: ruleOfThirdsResy },
+    weights: [20, 10, 10, 10, 10],
+    dishes: [
+      {
+        name: 'Hottokeki',
+        description: 'Japanese soufflé pancake with honey maple butter and sesame.',
+        price: 20,
+        photo: ruleDishPhotos.hottokeki,
+      },
+      { name: 'Karaage', description: 'Fried chicken with ginger soy and tartar sauce.', price: 17, photo: ruleDishPhotos.karaage },
+      { name: 'Chicken katsu sando', description: 'Panko-fried chicken thigh with pickled daikon, katsu sauce and mustard.', price: 18, photo: ruleDishPhotos.sando },
+      { name: 'Gyudon', description: 'Thinly sliced wagyu and onion over rice, with almond miso soup.', price: 24, photo: ruleDishPhotos.gyudon },
+      { name: 'Japanese breakfast set', description: 'Roasted market fish, short-grain rice, vegetables and almond miso soup.', photo: ruleDishPhotos.breakfast },
+    ],
+  },
+  dinner: {
+    label: 'Dinner',
+    hours: 'Daily from 5 p.m. · À la carte',
+    price: 57.5,
+    order: 'Karaage, silken tofu, hamachi collar, tonkatsu and two yaki onigiri',
+    priceMethod: 'Two starters, two mains and a shared rice side for two.',
+    booking: { platform: 'Resy', url: ruleOfThirdsResy, opening: 'Nov. 10 · 5:45 p.m. ET' },
+    weights: [12, 12, 12, 12, 12],
+    dishes: [
+      { name: 'Karaage', description: 'Fried chicken with ginger soy and tartar sauce.', price: 17, photo: ruleDishPhotos.karaage },
+      { name: 'House silken tofu', description: 'Housemade silken tofu with seasonal accompaniments.', price: 16, photo: ruleDishPhotos.tofu },
+      { name: 'Yaki onigiri', description: 'Crisp grilled rice ball with chicken fat. Vegan option available.', price: 5, photo: ruleDishPhotos.onigiri },
+      { name: 'Binchotan chicken meatball', description: 'Charcoal-grilled chicken meatball with Worcestershire yolk jam.', price: 5, photo: ruleDishPhotos.meatball },
+      { name: 'Tonkatsu', description: 'Breaded bone-in pork loin with cabbage and hatcho miso.', price: 37 },
+    ],
+  },
+} satisfies Record<string, Meal>;
+
+export type MealId = keyof typeof meals;
+export { availabilityDate };
+
 export const twins = {
-  jungsik: {
-    name: "Jungsik",
-    area: "Tribeca",
-    tone: "rose",
-    price: 335,
-    match: 68,
-    opening: "Nov. 13 · 9:30 p.m.",
-    format: "Signature tasting menu",
-    note: "The earliest opening shown was for the main dining room.",
+  softbite: {
+    photo: restaurantPhotos.softbite,
+    meal: 'brunch', name: 'Softbite', area: 'Long Island City, Queens', address: '42-60 Crescent St', camis: '50133311', tone: 'rose',
+    price: 31, order: 'Softbite crème pancakes, tonkatsu sando and gyudon',
+    atmosphere: 11, atmosphereReason: 'A casual café built around pancakes, coffee and brunch plates.',
+    menu: 'https://pos.chowbus.com/online-ordering/store/Softbite/23960',
+    booking: { platform: 'Softbite', url: 'https://www.softbite.us/about' },
     dishes: [
-      {
-        name: "Galbi",
-        reference: "Lamb saddle with neungi mushrooms",
-        score: 75,
-        reason: "Both are centerpiece meat courses with Korean accompaniments. Jungsik serves beef with white kimchi.",
-        photo: {
-          url: "https://pics.gourmandsyndrome.com/jungsik%2F22_galbi.webp",
-          caption: "Galbi at Jungsik, shown with its earlier barley rice presentation",
-          credit: "Gourmand Syndrome",
-          source: "https://www.gourmandsyndrome.com/nyc/korean/jungsik/"
-        }
-      },
-      {
-        name: "Yellowtail kimbap",
-        reference: "Gosari rice",
-        score: 75,
-        reason: "Both highlight seasoned rice. Jungsik uses truffle rice and crispy seaweed in a roll.",
-        photo: {
-          url: "https://www.theworlds50best.com/northamerica/en/filestore/jpg/NA50BR25-Jungsik-Dish-Kimbap.jpg",
-          caption: "Jungsik signature kimbap",
-          credit: "The 50 Best",
-          source: "https://www.theworlds50best.com/northamerica/en/the-list/jungsik.html"
-        }
-      },
-      {
-        name: "Yun-dubu",
-        reference: "Dubu mu",
-        score: 70,
-        reason: "Both feature tofu as a Korean side dish. Jungsik lists its version in the bar menu’s banchan selection.",
-        photo: {
-          url: "https://pics.gourmandsyndrome.com/jungsik%2F3_banchan.webp",
-          caption: "Jungsik’s banchan platter, which includes yun-dubu",
-          credit: "Gourmand Syndrome",
-          source: "https://www.gourmandsyndrome.com/nyc/korean/jungsik/"
-        }
-      }
+      { name: 'Softbite crème soufflé pancakes', score: 100, reason: 'The same airy pancake style, topped with cream and fruit.' },
+      { name: 'Chicken karaage', score: 100, reason: 'Japanese fried chicken with shichimi and spicy mayo.' },
+      { name: 'Tonkatsu sando', score: 75, reason: 'A breaded-cutlet sandwich with katsu sauce, made with pork.' },
+      { name: 'Gyudon', score: 100, reason: 'Sliced beef and onions over Japanese rice, with a poached egg.' },
+      { name: 'Miso salmon', score: 50, reason: 'Fish, rice and vegetables overlap with the breakfast set. Softbite serves them as a plated entrée.' },
     ],
-    room: {
-      url: "https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/05836a82-d3ea-44f6-88f1-0bbd1131204b.jpg?auto=format&ixlib=java-2.3.2&ixlib=js-3.8.0&w=1000",
-      caption: "Jungsik main dining room",
-      credit: "Jungsik / Tock",
-      source: "https://www.exploretock.com/jungsik/experience/625028/jungsik-main-dining-room-november-december-2026"
-    }
   },
-  naro: {
-    name: "NARO",
-    area: "Rockefeller Center",
-    tone: "sage",
-    price: 125,
-    match: 48,
-    opening: "Nov. 10 · 5:00 p.m.",
-    format: "Five-course dinner tasting",
-    note: "The matched dishes are à la carte. The five-course tasting menu rotates.",
+  'vert-frais': {
+    photo: restaurantPhotos['vert-frais'],
+    meal: 'brunch', name: 'Vert Frais', area: 'Long Island City, Queens', address: '43-10 Crescent St', camis: '50129486', tone: 'sage',
+    price: 32.5, order: 'Vert Frais matcha soufflé pancake, katsu don and salmon and ikura bowl',
+    atmosphere: 12, atmosphereReason: 'A sit-down brunch with shareable plates and a relaxed French-Japanese bistro setting.',
+    menu: 'https://vertfrais.squarespace.com/food',
+    booking: { platform: 'Resy', url: 'https://resy.com/cities/new-york-ny/venues/vert-frais' },
     dishes: [
-      {
-        name: "Oyster mushroom bowl",
-        reference: "Gosari rice",
-        score: 80,
-        reason: "Both offer earthy flavors over rice. NARO uses oyster mushrooms and black truffle, while Atomix uses bracken fern.",
-        photo: {
-          url: "https://d1w7312wesee68.cloudfront.net/wXhy9Dk7YFZqQ-TJuZfPUEsQ-TP-qMF7kdVgz_8Qego/resize%3Afit%3A720%3A720/plain/s3%3A/toasttab/restaurants/restaurant-113310000000000000/menu/items/2/item-200000051763030842_1749248781.jpg",
-          caption: "NARO’s oyster mushroom bowl with black truffle and sunchoke chips",
-          credit: "NARO’s ordering menu",
-          source: "https://order.toasttab.com/online/naro-nyc/item-oyster-mushroom-bowl_aed83a33-48e8-4372-819b-d4a72b4f92f9"
-        }
-      },
-      {
-        name: "Galbi beef patty bowl",
-        reference: "Lamb saddle with neungi mushrooms",
-        score: 65,
-        reason: "Both pair a savory meat preparation with rice. NARO uses a sweet-soy beef patty.",
-        photo: {
-          url: "https://www.nyculturebeat.com/files/attach/images/3947434/876/159/004/b28bb1dcff1d01be42afd616d6aebccb.jpg",
-          caption: "Galbi beef patty bowl from NARO’s 2025 lunch menu",
-          credit: "NYCultureBeat",
-          source: "https://www.nyculturebeat.com/index.php?document_srl=4159876&mid=FoodDrink2"
-        }
-      },
-      {
-        name: "Fried eggplant with smoked tofu",
-        reference: "Dubu mu",
-        score: 60,
-        reason: "Both pair tofu with vegetables. NARO uses smoked tofu and eggplant for a different flavor and texture."
-      }
+      { name: 'Matcha soufflé pancake', score: 100, reason: 'The same soufflé style, with matcha, cream and seasonal fruit.' },
+      { name: 'Chicken karaage', score: 100, reason: 'Japanese fried chicken finished with fried garlic.' },
+      { name: 'Katsu don', score: 50, reason: 'A breaded cutlet served as pork over rice instead of chicken on bread.' },
+      { name: '', score: 0, reason: 'The brunch menu has rice bowls, but no comparable sliced-beef bowl was found.' },
+      { name: 'Salmon and ikura bowl', score: 50, reason: 'Fish and rice overlap. This bowl uses raw salmon and roe instead of roasted fish and set sides.' },
     ],
-    room: {
-      url: "https://cdn.sanity.io/images/bs9rmafh/main/2694ba4196bca6d0ccf8229b926a44962d03dcc9-5997x4000.jpg?w=1000&auto=format",
-      caption: "NARO main dining room",
-      credit: "Rockefeller Center",
-      source: "https://www.rockefellercenter.com/magazine/food-drinks/naro-at-rockefeller-center/"
-    }
   },
-  jua: {
-    name: "Jua",
-    area: "Flatiron",
-    tone: "honey",
-    price: 150,
-    match: 41,
-    opening: "Nov. 17 · 8:30 p.m.",
-    format: "Seven-course tasting menu",
-    note: "Jua releases tables three weeks ahead. Some later dates in the research window were still unreleased.",
+  'hi-collar': {
+    photo: restaurantPhotos['hi-collar'],
+    meal: 'brunch', name: 'Hi-Collar', area: 'East Village, Manhattan', address: '231 E. 9th St', camis: '50115872', tone: 'honey',
+    price: 28, order: 'Gachi hotcake, katsu sandwich and Gachi hayashi rice',
+    atmosphere: 9, atmosphereReason: 'A Japanese coffeehouse with a daytime menu, suited to a smaller café meal.',
+    menu: 'https://www.hi-collar.com/menu',
+    booking: { platform: 'Resy', url: 'https://resy.com/cities/new-york-ny/venues/hi-collar' },
     dishes: [
-      {
-        name: "Duck & Chan",
-        reference: "Lamb saddle with neungi mushrooms",
-        score: 65,
-        reason: "Both center a protein course around Korean accompaniments. Jua serves duck.",
-        photo: {
-          url: "https://images.squarespace-cdn.com/content/v1/54ff4fa6e4b048b3e7348ab4/95ba4f63-f081-4b38-8e2c-ff7f939a203e/jua-nyc-012.jpg?format=900w",
-          caption: "Duck & Chan from a 2023 visit to Jua",
-          credit: "Jenn Pan",
-          source: "https://www.jenn.la/posts/2023/8/4/jua-new-york-city"
-        }
-      },
-      {
-        name: "Jook",
-        reference: "Gosari rice",
-        score: 60,
-        reason: "Both feature rice in a Korean tasting menu. Jua serves it as porridge.",
-        photo: {
-          url: "https://images.squarespace-cdn.com/content/v1/54ff4fa6e4b048b3e7348ab4/21c5838d-92ff-4ec3-bde0-24e5a1016dc9/jua-nyc-009.jpg?format=900w",
-          caption: "Jook from a 2023 visit to Jua",
-          credit: "Jenn Pan",
-          source: "https://www.jenn.la/posts/2023/8/4/jua-new-york-city"
-        }
-      }
+      { name: 'Gachi hotcake', score: 75, reason: 'A Japanese hotcake with butter and maple syrup. The menu describes it as a hotcake, with no soufflé preparation specified.' },
+      { name: '', score: 0, reason: 'No comparable chicken karaage was found on the daytime menu.' },
+      { name: 'Pork katsu sandwich', score: 75, reason: 'A breaded-cutlet sandwich on milk bread, made with pork.' },
+      { name: 'Gachi hayashi rice', score: 50, reason: 'Beef and onion over rice, prepared as a demi-glace stew.' },
+      { name: '', score: 0, reason: 'No comparable fish breakfast set was found on the daytime menu.' },
     ],
-    room: {
-      url: "https://bestofkorea.com/wp-content/uploads/2022/09/JuaWeb021_recopy_c-2.jpg",
-      caption: "Jua dining room",
-      credit: "Best of Korea",
-      source: "https://bestofkorea.com/review-jua-nyc-modern-korean-restaurant/"
-    }
-  }
+  },
+  yopparai: {
+    photo: restaurantPhotos.yopparai,
+    meal: 'dinner', name: 'Yopparai', area: 'Lower East Side, Manhattan', address: '49 Clinton St', camis: '50008955', tone: 'rose',
+    price: 57, order: 'Karaage, agedashi tofu, black cod, wagyu teppanyaki and yaki onigiri',
+    atmosphere: 12, atmosphereReason: 'Japanese small plates and sake in an intimate dining room with tatami booths and counter seats.',
+    menu: 'https://www.yopparainyc.com/yopparai-menu',
+    booking: { platform: 'OpenTable', url: 'https://www.opentable.com/yopparai', opening: 'Nov. 10 · 5:30 p.m. ET' },
+    dishes: [
+      { name: 'Karaage', score: 100, reason: 'Japanese fried chicken marinated in rice malt and garlic.' },
+      { name: 'Agedashi tofu', score: 50, reason: 'Tofu served deep-fried in thickened dashi.' },
+      { name: 'Yaki onigiri', score: 100, reason: 'Two grilled rice balls with cod roe and uni toppings.' },
+      { name: 'Tsukune', score: 100, reason: 'Japanese barbecue chicken meatball topped with egg yolk.' },
+      { name: '', score: 0, reason: 'No comparable pork cutlet was found on the dinner menu.' },
+    ],
+  },
+  teruko: {
+    photo: restaurantPhotos.teruko,
+    meal: 'dinner', name: 'Teruko', area: 'Chelsea, Manhattan', address: '222 W. 23rd St', camis: '50173099', tone: 'sage',
+    price: 65, order: 'Housemade tofu, chicken nanban, black cod, pork katsu and shiso rice',
+    atmosphere: 10, atmosphereReason: 'An intimate hotel dining room with a sushi counter and a more formal feel.',
+    menu: 'https://hotelchelsea.com/dining-and-bar/teruko',
+    booking: { platform: 'Resy', url: 'https://resy.com/cities/new-york-ny/venues/teruko', opening: 'Nov. 10 · 5:30 p.m. ET' },
+    affiliation: 'https://www.sundayhg.com/restaurants-and-more/',
+    dishes: [
+      { name: 'Chicken nanban', score: 75, reason: 'Fried chicken thigh dressed with black vinegar and green yuzu mayo.' },
+      { name: 'Housemade tofu', score: 100, reason: 'Chilled housemade tofu with shiso-scallion sauce.' },
+      { name: '', score: 0, reason: 'No comparable grilled rice ball was found on the dinner menu.' },
+      { name: 'Oyako tsukune', score: 100, reason: 'Robata-grilled chicken meatball with yakitori sauce and egg yolk.' },
+      { name: 'Berkshire pork katsu', score: 100, reason: 'Breaded pork loin with mustard tonkatsu sauce.' },
+    ],
+  },
+  wakuwaku: {
+    photo: restaurantPhotos.wakuwaku,
+    meal: 'dinner', name: 'WakuWaku', area: 'Sunset Park, Brooklyn', address: '269 36th St', camis: '50100043', tone: 'honey',
+    price: 35, order: 'Karaage, agedashi tofu, kalbi beef, unagi and rice, and miso yaki onigiri',
+    atmosphere: 13, atmosphereReason: 'A relaxed izakaya with shared plates and reservable tatami seating.',
+    menu: 'https://www.wakuwakuny.com/info-menu',
+    booking: { platform: 'Resy', url: 'https://resy.com/cities/new-york-ny/venues/oldies', opening: 'Nov. 11 · 5:15 p.m. ET' },
+    dishes: [
+      { name: 'Karaage', score: 100, reason: 'Japanese fried chicken served as a shared starter.' },
+      { name: 'Agedashi tofu', score: 50, reason: 'Fried tofu served in dashi sauce.' },
+      { name: 'Miso yaki onigiri', score: 100, reason: 'Two grilled rice balls seasoned with miso.' },
+      { name: 'Tsukune skewer', score: 100, reason: 'Grilled chicken meatball with an optional egg yolk.' },
+      { name: '', score: 0, reason: 'No comparable pork cutlet was found on the dinner menu.' },
+    ],
+  },
 } satisfies Record<string, Twin>;
 
 export type TwinId = keyof typeof twins;
 
 export function isTwinId(value: unknown): value is TwinId {
-  return typeof value === "string" && Object.hasOwn(twins, value);
+  return typeof value === 'string' && Object.hasOwn(twins, value);
+}
+
+export function isMealId(value: unknown): value is MealId {
+  return typeof value === 'string' && Object.hasOwn(meals, value);
+}
+
+export function matchPoints(twin: Twin) {
+  const meal = meals[twin.meal];
+  const dishes = Math.round(twin.dishes.reduce(
+    (total, dish, index) => total + dish.score / 100 * meal.weights[index], 0,
+  ));
+  const priceGap = Math.abs(twin.price - meal.price) / meal.price;
+  const price = Math.round(25 * Math.max(0, 1 - priceGap));
+
+  return { dishes, price, atmosphere: twin.atmosphere, total: dishes + price + twin.atmosphere };
+}
+
+const dollars = new Intl.NumberFormat('en-US', {
+  style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2,
+});
+
+export function formatPrice(price: number) {
+  return dollars.format(price);
 }

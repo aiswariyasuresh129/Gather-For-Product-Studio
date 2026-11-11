@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "snapshot": "node scripts/export-snapshot.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.552.0",
