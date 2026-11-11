@@ -1,7 +1,7 @@
-import { ArrowLeft, ArrowRight, Asterisk, Check } from 'lucide-react';
+import { ArrowLeft, Asterisk, Check } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link } from 'react-router';
-import { twins, type Photo, type TwinId } from './restaurants';
+import { availabilityDate, restaurant, twins, type Booking, type MealId, type Photo, type TwinId } from './restaurants';
 import { useStudyChoice } from './study-choice';
 
 export function PlateIcon() {
@@ -24,25 +24,22 @@ export function PlateIllustration() {
   );
 }
 
-export function Masthead({ page }: { page: 'atomix' | 'twins' | TwinId }) {
-  const isHome = page === 'atomix';
-  const isOverview = page === 'twins';
-
+export function Masthead({ step, back }: { step: string; back?: string }) {
   return (
     <header className="mast">
-      {isHome ? <span /> : (
-        <Link className="back" to={isOverview ? '/' : '/twins'}>
+      {back ? (
+        <Link className="back" to={back}>
           <ArrowLeft aria-hidden="true" />
-          {isOverview ? 'Atomix' : 'All twins'}
+          {back.startsWith('/twins') ? 'All twins' : restaurant.name}
         </Link>
-      )}
+      ) : <span />}
       <div className="brand"><Asterisk aria-hidden="true" />Gather</div>
-      <span className="step">{isHome ? 'Restaurant' : isOverview ? 'Compare' : 'Twin details'}</span>
+      <span className="step">{step}</span>
     </header>
   );
 }
 
-export function Stat({ label, value, detail }: { label: string; value: string; detail: string }) {
+export function Stat({ label, value, detail }: { label: string; value: ReactNode; detail: string }) {
   return (
     <div className="stat">
       <span className="label">{label}</span>
@@ -52,25 +49,38 @@ export function Stat({ label, value, detail }: { label: string; value: string; d
   );
 }
 
+export function BookingStat({ booking }: { booking: Booking }) {
+  return (
+    <Stat
+      label={booking.opening ? 'Table for two observed' : 'Reservations'}
+      value={<a href={booking.url} target="_blank" rel="noopener noreferrer">
+        {booking.opening ?? (booking.platform === 'Softbite' ? 'Contact Softbite' : `Check ${booking.platform}`)}
+      </a>}
+      detail={booking.opening ? `Checked ${availabilityDate} · ${booking.platform}` : 'See the venue for availability'}
+    />
+  );
+}
+
 export function RestaurantPhoto({ photo, kind }: { photo: Photo; kind: 'hero-photo' | 'dish-photo' }) {
   const [failed, setFailed] = useState(false);
 
   return (
     <figure className={`photo ${kind}`}>
-      <img src={photo.url} alt={photo.caption} decoding="async" referrerPolicy="no-referrer" hidden={failed} onError={() => setFailed(true)} />
+      <img src={photo.url} alt={photo.caption} loading={kind === 'dish-photo' ? 'lazy' : 'eager'} decoding="async" referrerPolicy="no-referrer" hidden={failed} onError={() => setFailed(true)} />
       <figcaption>
         {photo.caption} · <a href={photo.source} target="_blank" rel="noopener noreferrer">{photo.credit}</a>
-        {failed && <a className="photo-fallback" href={photo.url} target="_blank" rel="noopener noreferrer">Open photo</a>}
+        {failed && <a className="photo-fallback" href={photo.originalUrl ?? photo.url} target="_blank" rel="noopener noreferrer">Open photo</a>}
       </figcaption>
     </figure>
   );
 }
 
-export function ChoiceSummary({ allowReset = false }: { allowReset?: boolean }) {
-  const { choice, clear } = useStudyChoice();
+export function ChoiceSummary({ meal, allowReset = false }: { meal: MealId; allowReset?: boolean }) {
+  const { choices, clear } = useStudyChoice();
+  const choice = choices[meal];
 
   function clearChoice() {
-    clear();
+    clear(meal);
     document.getElementById('content')?.focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
@@ -92,12 +102,9 @@ export function Footer({ children, note }: { children: ReactNode; note?: string 
   return <footer className="next">{children}{note && <p>{note}</p>}</footer>;
 }
 
-export function ExploreButton() {
-  return <Link className="primary" to="/twins">Explore Restaurant Twins <ArrowRight aria-hidden="true" /></Link>;
-}
-
 export function SelectButton({ id }: { id: TwinId }) {
-  const { choice, select } = useStudyChoice();
+  const { choices, select } = useStudyChoice();
+  const choice = choices[twins[id].meal];
   const shouldScroll = useRef(false);
 
   useEffect(() => {
